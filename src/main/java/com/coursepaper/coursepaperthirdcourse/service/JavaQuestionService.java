@@ -1,9 +1,8 @@
 package com.coursepaper.coursepaperthirdcourse.service;
 
-import com.coursepaper.coursepaperthirdcourse.metods.Random;
 import com.coursepaper.coursepaperthirdcourse.model.Question;
 import org.springframework.stereotype.Service;
-
+import java.util.Random;
 import java.util.*;
 
 @Service
@@ -11,11 +10,7 @@ public class JavaQuestionService implements QuestionService {
 
     Set<Question> questionsSet = new HashSet<>();
 
-    private final Random random;
-
-    public JavaQuestionService(Random random) {
-        this.random = random;
-    }
+    Random random = new Random();
 
     @Override
     public Question questionAdd(String question, String answer) {
@@ -43,14 +38,12 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public Question getRandomQuestion() {
-        List<Question> questionsList = new ArrayList<>();
+    public Optional<Question> getRandomQuestion() {
 
-        int n = questionsSet.size();
-        for (Question question : questionsSet) {
-            questionsList.add(question);
-        }
-        return questionsList.get(random.nextInt(questionsSet.size()));
+        return questionsSet.stream()
+                .skip(random.nextInt(questionsSet.size()))
+                .findFirst();
+
     }
 
 }

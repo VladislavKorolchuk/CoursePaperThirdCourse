@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -18,12 +19,12 @@ public class ExaminerServiceImpl implements ExaminerService {
     }
 
     @Override
-    public Collection<Question> getQuestions(int amount) {
+    public Collection<Optional<Question>> getQuestions(int amount) {
 
         if (amount > javaQuestionService.getAll().size()) {
             throw new InvalidIndexException();
         }
-        Set<Question> questionHashSet = new HashSet<>();
+        Set<Optional<Question>> questionHashSet = new HashSet<>();
         while (questionHashSet.size() < amount) {
             questionHashSet.add(javaQuestionService.getRandomQuestion());
         }

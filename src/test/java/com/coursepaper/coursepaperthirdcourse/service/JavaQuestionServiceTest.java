@@ -1,27 +1,14 @@
 package com.coursepaper.coursepaperthirdcourse.service;
 
-import com.coursepaper.coursepaperthirdcourse.metods.Random;
 import com.coursepaper.coursepaperthirdcourse.model.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
 
-@ExtendWith(MockitoExtension.class)
 class JavaQuestionServiceTest {
-
-    @Mock
-    private Random random;
-
-    @InjectMocks
-    private JavaQuestionService javaQuestionService;
+    private JavaQuestionService javaQuestionService = new JavaQuestionService();
 
     @BeforeEach
     void setUp() {
@@ -40,50 +27,41 @@ class JavaQuestionServiceTest {
     @Test
     void questionAdd() {
         javaQuestionService.questionAdd("9*9= ", "81");
+        assertTrue(javaQuestionService.getAll().toString().contains("Вопрос: 9*9=  ответ: 81"));
         assertEquals(javaQuestionService.getAll().size(), 6);
-
     }
 
     @Test
     void testQuestionAdd() {
-        Question question = new Question("9*9=", "81");
+        Question question = new Question("9*9= ", "81");
         javaQuestionService.questionAdd(question);
+        assertTrue(javaQuestionService.getAll().toString().contains("Вопрос: 9*9=  ответ: 81"));
         assertEquals(javaQuestionService.getAll().size(), 6);
     }
 
     @Test
     void questionRemove() {
         Question question = new Question("9*9=", "81");
+        javaQuestionService.questionAdd(question);
+        assertEquals(javaQuestionService.getAll().size(), 6);
+        javaQuestionService.questionRemove(question);
         assertEquals(javaQuestionService.getAll().size(), 5);
+        assertFalse(javaQuestionService.getAll().toString().contains("Вопрос: 9*9=  ответ: 81"));
     }
 
     @Test
     void getAll() {
         assertEquals(javaQuestionService.getAll().size(), 5);
+        assertTrue(javaQuestionService.getAll().toString().contains("Вопрос: 2*3= ответ: 6"));
+        assertTrue(javaQuestionService.getAll().toString().contains("Вопрос: 2*5= ответ: 10"));
+        assertTrue(javaQuestionService.getAll().toString().contains("Вопрос: 2*2= ответ: 4"));
+        assertTrue(javaQuestionService.getAll().toString().contains("Вопрос: 2*6= ответ: 12"));
+        assertTrue(javaQuestionService.getAll().toString().contains("Вопрос: 2*4= ответ: 8"));
     }
 
     @Test
     void getRandomQuestion() {
-        assertNotNull(random);
-        Mockito.when(random.nextInt(anyInt())).thenReturn(3);
-        assertEquals(javaQuestionService.getRandomQuestion().toString(), "Вопрос: 2*6= ответ: 12");
-    }
-
-    @Test
-    void TestRandom() {
-        Random random = new Random();
-        int iCopy=0;
-        int maxNumber=5;
-        int numberOfCycles=100;
-
-        for (int i = 0; i <= numberOfCycles; i++) {
-            int meaning = random.nextInt(maxNumber);
-            if (meaning < 0 || meaning > 5) {
-                break;
-            }
-                 iCopy = i;
-        }
-        assertEquals(iCopy,numberOfCycles);
+        assertNotNull(javaQuestionService.getRandomQuestion());
     }
 
 }

@@ -36,5 +36,5 @@ Content-Type: application/json
 }
 
 ### Вывод экзаменационных вопрос-ответ
-POST http://localhost:8080/exam/java/get?numberQuestion=1
+POST http://localhost:8080/exam/java/get?numberQuestion=2
 
