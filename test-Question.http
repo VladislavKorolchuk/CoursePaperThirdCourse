@@ -1,0 +1,40 @@
+### Ввод 1 вопрос-ответ
+PUT http://localhost:8080/exam/java/add?question="2x2"&answer="4"
+
+### Ввод 2 вопрос-ответ
+PUT http://localhost:8080/exam/java/add?question="2x3"&answer="6"
+
+### Ввод 3 вопрос-ответ
+PUT http://localhost:8080/exam/java/add?question="2x4"&answer="8"
+
+### Ввод 4 вопрос-ответ
+PUT http://localhost:8080/exam/java/add?question="2x5"&answer="10"
+
+### Ввод 5 вопрос-ответ
+PUT http://localhost:8080/exam/java/add?question="2x6"&answer="12"
+
+### вывод всех вопрос-ответ
+GET http://localhost:8080/exam/java
+
+
+### Ввод 6 вопрос-ответ
+POST http://localhost:8080/exam/java/add
+Content-Type: application/json
+
+{
+  "question": "9x9",
+  "answer": "81"
+}
+
+### Удаление 6 вопрос-ответ
+DELETE http://localhost:8080/exam/java/remove
+Content-Type: application/json
+
+{
+  "question": "9x9",
+  "answer": "81"
+}
+
+### Вывод экзаменационных вопрос-ответ
+POST http://localhost:8080/exam/java/get?numberQuestion=2
+
